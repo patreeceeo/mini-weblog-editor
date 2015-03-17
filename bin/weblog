@@ -1,0 +1,45 @@
+#!/usr/local/bin/python
+
+# How to setup server to use this utility
+# 1 Add DNS records:
+#   - MX     5  mail.yourdomain.com
+#   - A   mail  42.42.42.42
+#
+# 2 install Python
+# > pkg install python
+#
+# 3 upload this program
+# $ rsync -p weblog you@yourdomain.com:/path/to/this/program
+# 
+# 4 add Sendmail alias
+# > cp /ect/mail/aliases.sample /etc/mail/aliases
+# > echo 'bacon: "| /path/to/this/program"' >> /etc/mail/aliases
+# > newaliases
+#
+# 5 add Sendmail access rule
+# > echo 'From:mail.my-email-provider.com  OK' >> /etc/mail/access
+# > makemap hash /etc/mail/access < /etc/mail/access
+# > service sendmail restart
+# 
+# 6 create weblog directory
+# $ mkdir weblog
+# $ chgrp mailnull weblog
+# $ chmod g+wx weblog
+
+
+from __future__ import print_function
+import fileinput
+import sys
+from os import path
+from email.parser import Parser
+
+
+home_dir_path = path.expanduser(("~%s" % sys.argv[1]))
+message = Parser().parse(sys.stdin)
+weblog_data_dir = path.abspath(path.join(home_dir_path, "weblog", message.get("Subject") + ".txt"))
+output_file = open(weblog_data_dir, 'w')
+# TODO handle multi-part messages
+print(message.get_payload(), file=output_file)
+
+
+# vim: set filetype=python

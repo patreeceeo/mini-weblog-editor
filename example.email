@@ -1,0 +1,30 @@
+From me@gmail.com Mon Mar 16 19:40:55 2015
+Return-Path: <me@gmail.com>
+Received: from nk11p20im-asmtp002.me.com (nk11p20im-asmtp002.me.com [17.158.216.161])
+        by mydomain.com (8.14.9/8.14.9) with ESMTP id t2GJessY001037
+        (version=TLSv1/SSLv3 cipher=DHE-RSA-AES128-GCM-SHA256 bits=128 verify=NO)
+        for <freebsd@mydomain.com>; Mon, 16 Mar 2015 19:40:55 GMT
+        (envelope-from me@gmail.com)
+Received: from [192.168.1.88]
+ (107-218-118-125.lightspeed.jcvlfl.sbcglobal.net [107.218.118.125])
+ by nk11p20im-asmtp002.me.com
+ (Oracle Communications Messaging Server 7.0.5.35.0 64bit (built Dec  4 2014))
+ with ESMTPSA id <0NLB00IDDLA6XN60@nk11p20im-asmtp002.me.com> for
+ freebsd@mydomain.com; Mon, 16 Mar 2015 19:39:44 +0000 (GMT)
+X-Proofpoint-Virus-Version: vendor=fsecure
+ engine=2.50.10432:5.13.68,1.0.33,0.0.0000
+ definitions=2015-03-16_04:2015-03-16,2015-03-16,1970-01-01 signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ suspectscore=1 phishscore=0 adultscore=0 bulkscore=0 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=7.0.1-1412110000 definitions=main-1503160197
+From: Patrick <me@gmail.com>
+Content-type: text/plain; charset=us-ascii
+Content-transfer-encoding: 7bit
+Subject: Give me more cowbell!!!
+Message-id: <88B69F8C-C212-4BB9-A1C5-60F8057B5496@icloud.com>
+Date: Mon, 16 Mar 2015 15:39:42 -0400
+To: freebsd@mydomain.com
+MIME-version: 1.0 (Mac OS X Mail 8.1 \(1993\))
+X-Mailer: Apple Mail (2.1993)
+
+Hello, this is the message!
