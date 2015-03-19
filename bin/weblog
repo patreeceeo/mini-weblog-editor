@@ -33,13 +33,33 @@ import sys
 from os import path
 from email.parser import Parser
 
+def slugify(text):
+    import re
+    REPLACE1_REXP = re.compile(r'[\']+')
+    REPLACE2_REXP = re.compile(r'[^-a-z0-9]+')
+    REMOVE_REXP = re.compile('-{2,}')
 
-home_dir_path = path.expanduser(("~%s" % sys.argv[1]))
-message = Parser().parse(sys.stdin)
-weblog_data_dir = path.abspath(path.join(home_dir_path, "weblog", message.get("Subject") + ".txt"))
-output_file = open(weblog_data_dir, 'w')
-# TODO handle multi-part messages
-print(message.get_payload(), file=output_file)
+    # translate
+    if sys.version_info < (3,):
+        text = text.encode('ascii', 'ignore')
+
+    # replace unwanted characters
+    text = REPLACE1_REXP.sub('', text.lower())  # replace ' with nothing instead with -
+    text = REPLACE2_REXP.sub('-', text.lower())
+
+    # remove redundant -
+    text = REMOVE_REXP.sub('-', text).strip('-')
+
+    return text
+
+if __name__ == "__main__":
+    home_dir_path = path.expanduser(("~%s" % sys.argv[1]))
+    message = Parser().parse(sys.stdin)
+    weblog_data_dir = path.abspath(path.join(home_dir_path, "weblog", "static", "posts", slugify(message.get("Subject")) + ".txt"))
+    output_file = open(weblog_data_dir, 'w')
+    # TODO handle multi-part messages
+    print(message.get_payload(), file=output_file)
+
 
 
 # vim: set filetype=python
