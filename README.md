@@ -18,11 +18,11 @@ $ rsync -p weblog you@yourdomain.com:/path/to/this/program
 
 4. add Sendmail alias
 
-This will configure Sendmail to turn emails addressed to bacon@yourdomain.com into weblog posts for the user "richard".
+This will configure Sendmail to turn emails addressed to editor@yourdomain.com into weblog posts for the user "richard".
 
 ```
 > cp /ect/mail/aliases.sample /etc/mail/aliases
-> echo 'bacon: "| /path/to/this/program richard"' >> /etc/mail/aliases
+> echo 'editor: "| /path/to/this/program richard"' >> /etc/mail/aliases
 > newaliases
 ```
 

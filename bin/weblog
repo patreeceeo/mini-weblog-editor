@@ -6,7 +6,7 @@ from __future__ import print_function
 import fileinput
 import sys
 from os import path
-from email.parser import Parser
+import email
 
 def slugify(text):
     import re
@@ -27,13 +27,24 @@ def slugify(text):
 
     return text
 
+def open_in_weblog_dir(subdir, filename, mode='w'):
+    return open(path.abspath(path.join(home_dir_path, 'weblog', 'static', subdir, filename)), mode)
+
+
 if __name__ == "__main__":
     home_dir_path = path.expanduser(("~%s" % sys.argv[1]))
-    message = Parser().parse(sys.stdin)
-    weblog_data_dir = path.abspath(path.join(home_dir_path, "weblog", "static", "posts", slugify(message.get("Subject")) + ".txt"))
-    output_file = open(weblog_data_dir, 'w')
-    # TODO handle multi-part messages
-    print(message.get_payload(), file=output_file)
+    message = email.message_from_file(sys.stdin)
+    text_file = open_in_weblog_dir('posts', slugify(message.get('Subject')) + '.txt')
+    if not message.is_multipart():
+        print(message.get_payload(), file=text_file)
+    else:
+        for message_part in message.walk():
+            content_type_1, content_type_2 = message_part.get_content_type().split('/')
+            if content_type_1 == 'text' and content_type_2 == 'plain':
+                print(message_part.get_payload(), file=text_file)
+            if content_type_1 == "image":
+                image_file = open_in_weblog_dir('images', message_part.get_filename('noname.' + content_type_2), 'wb')
+                print(message_part.get_payload(decode=True), file=image_file)
 
 
 
